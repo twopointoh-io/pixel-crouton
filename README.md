@@ -4,6 +4,23 @@ A little native macOS app for turning a batch of images into web-ready JPEGs or 
 
 ![Pixel Crouton’s image queue, JPEG export controls, and optional Naming section, with sample filenames](docs/preview.png)
 
+## Install on Mac
+
+Pixel Crouton is currently distributed as source code. There’s no prebuilt app download yet.
+
+**You’ll need:** macOS 14 or later, Git, and Apple’s Swift 6 toolchain with a macOS SDK (from Xcode or Command Line Tools). No third-party packages are required.
+
+Open Terminal and paste:
+
+```sh
+git clone https://github.com/twopointoh-io/pixel-crouton.git &&
+cd pixel-crouton &&
+./scripts/build.sh &&
+open "dist/Pixel Crouton.app"
+```
+
+To keep it in Applications, open the `dist` folder in Finder and drag **Pixel Crouton.app** into **Applications**.
+
 ## Usage
 
 1. Drag files or folders into **Images in**, or click **Choose Images or Folders…** (⌘O). Folder imports include subfolders and skip hidden files and packages.
@@ -22,16 +39,9 @@ Changes to export settings and the last export folder are remembered on this Mac
 - Orientation is applied to the exported pixels. The app does not deliberately copy source metadata such as EXIF or GPS; color profiles can be retained by Image I/O.
 - Files are processed one at a time off the UI thread, with no fixed batch-size limit. The maximum long-edge setting accepts 1–12,000 px. Lower it for very large sources if conversion runs out of memory.
 
-## Build from source
+## Developer notes
 
-Requires macOS 14 or later and an Apple Swift 6 toolchain with a macOS SDK (Xcode or Command Line Tools). No third-party packages are required.
-
-```sh
-./scripts/build.sh
-open "dist/Pixel Crouton.app"
-```
-
-Use `./scripts/build.sh --universal` for one build containing arm64 and x86_64. The output is locally ad hoc signed, not Developer ID signed or notarized. Building from source is the recommended way to try it on another Mac.
+Use `./scripts/build.sh --universal` for one build containing arm64 and x86_64. Builds are locally ad hoc signed, not Developer ID signed or notarized.
 
 ```sh
 ./scripts/test.sh     # synthetic Image I/O and batch regression tests
