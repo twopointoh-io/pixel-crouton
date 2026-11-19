@@ -4,22 +4,13 @@ A little native macOS app for turning a batch of images into web-ready JPEGs or 
 
 ![Pixel Crouton’s image queue, JPEG export controls, and optional Naming section, with sample filenames](docs/preview.png)
 
-## Install on Mac
+## Quick download and install
 
-Pixel Crouton is currently distributed as source code. There’s no prebuilt app download yet.
+1. [Download the Pixel Crouton ZIP](https://drive.google.com/open?id=1wrBkdnfic_nRR_AVmy3iSwuIDjuHv2gw&usp=drive_fs).
+2. Unzip the file.
+3. Move **Pixel Crouton.app** to your **Applications** folder.
 
-**You’ll need:** macOS 14 or later, Git, and Apple’s Swift 6 toolchain with a macOS SDK (from Xcode or Command Line Tools). No third-party packages are required.
-
-Open Terminal and paste:
-
-```sh
-git clone https://github.com/twopointoh-io/pixel-crouton.git &&
-cd pixel-crouton &&
-./scripts/build.sh &&
-open "dist/Pixel Crouton.app"
-```
-
-To keep it in Applications, open the `dist` folder in Finder and drag **Pixel Crouton.app** into **Applications**.
+**macOS note:** This build is not notarized by Apple. Gatekeeper may warn you or block it on first launch. If you prefer, follow the [build-from-source instructions](#build-from-source) below.
 
 ## Usage
 
@@ -39,9 +30,16 @@ Changes to export settings and the last export folder are remembered on this Mac
 - Orientation is applied to the exported pixels. The app does not deliberately copy source metadata such as EXIF or GPS; color profiles can be retained by Image I/O.
 - Files are processed one at a time off the UI thread, with no fixed batch-size limit. The maximum long-edge setting accepts 1–12,000 px. Lower it for very large sources if conversion runs out of memory.
 
-## Developer notes
+## Build from source
 
-Use `./scripts/build.sh --universal` for one build containing arm64 and x86_64. Builds are locally ad hoc signed, not Developer ID signed or notarized.
+Requires macOS 14 or later and an Apple Swift 6 toolchain with a macOS SDK (Xcode or Command Line Tools). No third-party packages are required.
+
+```sh
+./scripts/build.sh
+open "dist/Pixel Crouton.app"
+```
+
+Use `./scripts/build.sh --universal` for one build containing arm64 and x86_64. The output is locally ad hoc signed, not Developer ID signed or notarized. Building from source is the recommended way to try it on another Mac.
 
 ```sh
 ./scripts/test.sh     # synthetic Image I/O and batch regression tests
